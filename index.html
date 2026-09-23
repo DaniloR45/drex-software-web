@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DREX Software | Soluciones Automatizadas & Infraestructura Lógica</title>
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --bg: #0A0E17;
-            --surface: rgba(255, 255, 255, 0.03);
-            --surface-hover: rgba(255, 255, 255, 0.05);
+            --bg: #06090F;
+            --surface: rgba(15, 23, 42, 0.6);
+            --surface-hover: rgba(30, 41, 59, 0.8);
             --border: rgba(255, 255, 255, 0.08);
-            --accent: #00F2FE;
-            --accent-glow: rgba(0, 242, 254, 0.15);
-            --text-primary: #FFFFFF;
+            --border-glow: rgba(0, 102, 255, 0.4);
+            --accent: #0066FF;
+            --accent-bright: #00E5FF;
+            --accent-glow: rgba(0, 102, 255, 0.25);
+            --text-primary: #F8FAFC;
             --text-secondary: #94A3B8;
         }
 
@@ -35,7 +36,21 @@
             line-height: 1.6;
         }
 
-        /* Background grid effect */
+        /* Ambient Glow & Background Image/Mesh */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 102, 255, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(0, 229, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(6, 9, 15, 0.9) 0%, #06090F 100%);
+        }
+
         .bg-grid {
             position: fixed;
             top: 0;
@@ -43,11 +58,12 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(0, 242, 254, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 242, 254, 0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
             z-index: -1;
             pointer-events: none;
+            opacity: 0.6;
         }
 
         /* Navbar */
@@ -58,127 +74,117 @@
             transform: translateX(-50%);
             width: 90%;
             max-width: 1200px;
-            background: rgba(10, 14, 23, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(6, 9, 15, 0.8);
+            backdrop-filter: blur(16px);
             border: 1px solid var(--border);
-            border-radius: 50px;
-            padding: 12px 24px;
+            border-radius: 16px;
+            padding: 14px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            transition: all 0.3s;
-        }
-
-        .logo {
-            display: flex;
-            flex-direction: column;
         }
 
         .logo-main {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
-            letter-spacing: 1.5px;
-            color: var(--text-primary);
+            letter-spacing: 2px;
+            color: #FFF;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .logo-main span {
-            color: var(--accent);
+        .logo-main i {
+            color: var(--accent-bright);
+            filter: drop-shadow(0 0 8px var(--accent-glow));
         }
 
         .logo-sub {
             font-size: 9px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 2px;
             color: var(--text-secondary);
-            text-transform: uppercase;
-            margin-top: -2px;
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        nav {
-            display: flex;
-            gap: 24px;
-        }
+        nav { display: flex; gap: 28px; }
 
         nav a {
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
             transition: color 0.3s;
         }
 
-        nav a:hover {
-            color: var(--accent);
-        }
+        nav a:hover { color: var(--accent-bright); }
 
         .cta-btn {
-            background: linear-gradient(135deg, var(--accent), #0072FF);
-            color: #0A0E17;
-            padding: 10px 20px;
-            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 229, 255, 0.2));
+            border: 1px solid rgba(0, 229, 255, 0.4);
+            color: #FFF;
+            padding: 10px 22px;
+            border-radius: 10px;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
-            box-shadow: 0 4px 15px var(--accent-glow);
-            transition: transform 0.3s, box-shadow 0.3s;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
         }
 
         .cta-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent-bright);
+            box-shadow: 0 0 20px var(--accent-glow);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.3);
         }
 
         /* Hero */
         .hero {
-            padding: 180px 20px 100px;
-            max-width: 1200px;
+            padding: 190px 20px 100px;
+            max-width: 1100px;
             margin: 0 auto;
             text-align: center;
-            position: relative;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(0, 242, 254, 0.1) 0%, transparent 70%);
-            filter: blur(40px);
-            pointer-events: none;
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 102, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            color: var(--accent-bright);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 24px;
         }
 
         .hero h1 {
-            font-size: clamp(32px, 5vw, 64px);
+            font-size: clamp(36px, 5.5vw, 68px);
             font-weight: 800;
             line-height: 1.1;
-            margin-bottom: 20px;
-            background: linear-gradient(180deg, #FFFFFF 0%, #94A3B8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
         }
 
         .hero h1 span {
-            background: linear-gradient(135deg, var(--accent) 0%, #0072FF 100%);
+            background: linear-gradient(135deg, #FFF 30%, var(--accent-bright) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero p {
             color: var(--text-secondary);
-            font-size: clamp(16px, 2vw, 18px);
-            max-width: 700px;
+            font-size: clamp(16px, 2vw, 19px);
+            max-width: 720px;
             margin: 0 auto 40px;
         }
 
-        /* Bento Grid (Estantes) */
+        /* Bento Grid (Estantes Interactivos) */
         .products {
             padding: 80px 20px;
             max-width: 1200px;
@@ -190,327 +196,253 @@
             margin-bottom: 60px;
         }
 
-        .section-title h2 {
-            font-size: 32px;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .section-title p {
-            color: var(--text-secondary);
-        }
+        .section-title h2 { font-size: 34px; font-weight: 800; }
 
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 20px;
+            gap: 24px;
         }
 
         .bento-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 40px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 20px;
+            padding: 36px;
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
-        .bento-card::before {
+        /* Preview overlay on hover */
+        .bento-card::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(800px circle at var(--x, 0px) var(--y, 0px), rgba(0, 242, 254, 0.05), transparent 40%);
-            pointer-events: none;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: radial-gradient(circle at top right, rgba(0, 229, 255, 0.08), transparent 60%);
             opacity: 0;
-            transition: opacity 0.5s;
+            transition: opacity 0.4s;
+            pointer-events: none;
         }
 
-        .bento-card:hover::before {
-            opacity: 1;
-        }
+        .bento-card:hover::after { opacity: 1; }
 
         .bento-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(0, 242, 254, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.05);
+            border-color: var(--border-glow);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 102, 255, 0.15);
         }
 
         .card-1 { grid-column: span 8; }
         .card-2 { grid-column: span 4; }
         .card-3 { grid-column: span 4; }
-        .card-4 { grid-column: span 8; background: linear-gradient(135deg, rgba(10, 14, 23, 0.5) 0%, rgba(0, 114, 255, 0.05) 100%); }
+        .card-4 { grid-column: span 8; }
 
         @media (max-width: 900px) {
             .card-1, .card-2, .card-3, .card-4 { grid-column: span 12; }
         }
 
         .card-icon {
-            font-size: 32px;
-            color: var(--accent);
-            margin-bottom: 24px;
-        }
-
-        .bento-card h3 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .bento-card p {
-            color: var(--text-secondary);
-            font-size: 15px;
-            margin-bottom: 24px;
-        }
-
-        .bento-card .badge {
-            display: inline-block;
-            background: rgba(0, 242, 254, 0.1);
-            color: var(--accent);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-        }
-
-        .btn-card {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            transition: gap 0.3s, color 0.3s;
-        }
-
-        .btn-card:hover {
-            color: var(--accent);
-            gap: 12px;
-        }
-
-        /* Validator Section */
-        .validator {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .validator-box {
-            background: linear-gradient(135deg, rgba(255,255,255,0.01) 0%, rgba(0,242,254,0.02) 100%);
+            width: 52px;
+            height: 52px;
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border);
-            border-radius: 32px;
-            padding: 60px 40px;
-            max-width: 800px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--accent-bright);
+            margin-bottom: 24px;
+            transition: all 0.3s;
+        }
+
+        .bento-card:hover .card-icon {
+            background: var(--accent);
+            color: #FFF;
+            border-color: var(--accent-bright);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .bento-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+        .bento-card p { color: var(--text-secondary); font-size: 15px; margin-bottom: 24px; }
+
+        /* Simulated Software Screen Preview inside card */
+        .card-preview {
+            background: rgba(6, 9, 15, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: #38BDF8;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Validator */
+        .validator-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 50px 30px;
+            max-width: 750px;
             margin: 0 auto;
             text-align: center;
-            position: relative;
+            backdrop-filter: blur(12px);
         }
 
         .input-group {
             display: flex;
-            max-width: 500px;
-            margin: 30px auto;
+            max-width: 520px;
+            margin: 30px auto 10px;
             gap: 12px;
         }
 
-        @media (max-width: 600px) {
-            .input-group { flex-direction: column; }
-        }
+        @media (max-width: 600px) { .input-group { flex-direction: column; } }
 
         .input-group input {
             flex: 1;
-            background: rgba(10,14,23,0.8);
+            background: rgba(6, 9, 15, 0.9);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px 20px;
+            border-radius: 10px;
+            padding: 14px 18px;
             color: #FFF;
-            font-size: 15px;
+            font-size: 14px;
+            font-family: 'JetBrains Mono', monospace;
             outline: none;
-            transition: border-color 0.3s;
         }
 
         .input-group input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.1);
+            border-color: var(--accent-bright);
+            box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
         }
 
-        .btn-validate {
-            background: #FFFFFF;
-            color: #0A0E17;
-            border: none;
-            border-radius: 12px;
-            padding: 0 32px;
-            font-weight: 700;
-            font-size: 15px;
-            cursor: pointer;
-            transition: transform 0.3s, opacity 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            height: 54px;
-        }
-
-        .btn-validate:hover {
-            transform: translateY(-1px);
-            opacity: 0.95;
-        }
-
-        #result {
-            margin-top: 24px;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .valid-box { color: #10B981; }
-        .invalid-box { color: #EF4444; }
-
-        /* Footer */
         footer {
             border-top: 1px solid var(--border);
-            padding: 60px 20px;
+            padding: 50px 20px;
             text-align: center;
-            background: rgba(10, 14, 23, 0.5);
+            margin-top: 80px;
         }
 
-        footer p {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        footer .brand-sign {
-            font-size: 10px;
+        .brand-sign {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
             letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: 700;
-            color: #475569;
-            margin-top: 16px;
+            color: var(--accent-bright);
+            margin-top: 12px;
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
+
+    <div class="ambient-bg"></div>
     <div class="bg-grid"></div>
 
     <header>
-        <div class="logo">
-            <div class="logo-main"><i class="fa-solid fa-cube"></i> DREX<span>.</span></div>
+        <div>
+            <div class="logo-main"><i class="fa-solid fa-terminal"></i> DREX<span>.</span></div>
             <div class="logo-sub">A.S.L.I. ARCHITECTURE</div>
         </div>
         <nav>
             <a href="#soluciones">Soluciones</a>
             <a href="#validador">Licencias</a>
         </nav>
-        <a href="https://wa.me/591XXXXXXXX" target="_blank" class="cta-btn">Contacto</a>
+        <a href="https://wa.me/591XXXXXXXX" target="_blank" class="cta-btn"><i class="fa-brands fa-whatsapp"></i> Contacto Directo</a>
     </header>
 
     <section class="hero">
-        <h1>Informatizando Empresas con <span>Inteligencia Operativa</span></h1>
-        <p>Impulsamos la transformación digital en Bolivia mediante automatizaciones eficientes, lógica robusta y software de alto rendimiento hecho a tu medida.</p>
+        <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> SISTEMAS SEGURE-BY-DESIGN</div>
+        <h1>Automatización e Infraestructura <span>Lógica de Alto Nivel</span></h1>
+        <p>Desarrollamos soluciones de software robustas, seguras y escalables para optimizar la operativa de empresas en Bolivia.</p>
         <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-            <a href="https://wa.me/591XXXXXXXX?text=Hola!%20Me%20gustaria%20saber%20mas%20de%20sus%20soluciones%20software" class="cta-btn" style="padding: 16px 36px;">Explorar Catalogo</a>
-            <a href="#validador" style="padding: 16px 36px; border: 1px solid var(--border); color: #FFF; text-decoration: none; border-radius: 30px; font-size: 14px; font-weight: 700;">Verificar Clave</a>
+            <a href="https://wa.me/591XXXXXXXX" class="cta-btn" style="padding: 14px 32px; font-size: 14px;">Solicitar Demostración</a>
+            <a href="#validador" style="padding: 14px 28px; border: 1px solid var(--border); color: #FFF; text-decoration: none; border-radius: 10px; font-size: 14px; font-weight: 600;">Verificar Licencia</a>
         </div>
     </section>
 
     <section class="products" id="soluciones">
         <div class="section-title">
-            <span class="badge" style="background: rgba(0,242,254,0.1); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size:11px; font-weight:700;">NUESTRO CATALOGO</span>
             <h2>Nuestra Vitrina de Soluciones</h2>
-            <p>Infraestructuras lógicas desarrolladas para escalar y automatizar procesos sin límites.</p>
+            <p style="color: var(--text-secondary); margin-top: 8px;">Módulos de software preparados para integrarse a la medida de tu negocio.</p>
         </div>
 
         <div class="bento-grid">
             <div class="bento-card card-1">
-                <div class="badge">Administración</div>
-                <div class="card-icon"><i class="fa-solid fa-users-gear"></i></div>
-                <h3>Sistemas de Gestión de Personal & Planillas</h3>
-                <p>Digitaliza el control de asistencia, cálculo de aportes, gestión de planillas salariales y generación de boletas de pago de forma segura y veloz, adaptado a la legislación de Bolivia.</p>
-                <a href="#" class="btn-card">Saber más <i class="fa-solid fa-arrow-right"></i></a>
+                <div class="card-icon"><i class="fa-solid fa-id-card-clip"></i></div>
+                <h3>Gestión de Personal, Asistencia & Planillas</h3>
+                <p>Digitaliza el control de marcado de personal, cálculo automático de salarios y emisión de boletas conforme a la normativa vigente.</p>
+                <div class="card-preview">
+                    <i class="fa-solid fa-circle-check" style="color: #10B981;"></i>
+                    <span>SYS_RRHH_LOG // Planillas calculadas en 0.04s [OK]</span>
+                </div>
             </div>
 
             <div class="bento-card card-2">
-                <div class="badge">Inteligencia</div>
                 <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
-                <h3>Agentes IA & WhatsApp</h3>
-                <p>Asistentes virtuales integrados que automatizan la atención al cliente las 24 horas.</p>
-                <a href="#" class="btn-card">Saber más <i class="fa-solid fa-arrow-right"></i></a>
+                <h3>Agentes IA & Automatización</h3>
+                <p>Atención automática a clientes en WhatsApp e integración de flujos inteligentes.</p>
+                <div class="card-preview">
+                    <i class="fa-solid fa-bolt" style="color: #F59E0B;"></i>
+                    <span>BOT_RESPONSE // Respuesta en 0.2s</span>
+                </div>
             </div>
 
             <div class="bento-card card-3">
-                <div class="badge">Gastronomía</div>
-                <div class="card-icon"><i class="fa-solid fa-qrcode"></i></div>
-                <h3>Menús QR & Ventas</h3>
-                <p>Digitaliza la experiencia en sala, optimiza comandas, administra inventarios y unifica cobros.</p>
-                <a href="#" class="btn-card">Saber más <i class="fa-solid fa-arrow-right"></i></a>
+                <div class="card-icon"><i class="fa-solid fa-cash-register"></i></div>
+                <h3>Menú QR & Control Comercial</h3>
+                <p>Control de inventario, impresiones locales y administración de comensales.</p>
             </div>
 
             <div class="bento-card card-4">
-                <div class="badge">Próximamente</div>
-                <div class="card-icon" style="opacity: 0.4;"><i class="fa-solid fa-server"></i></div>
-                <h3>DREX Cloud Integrations</h3>
-                <p>Estamos diseñando nuevas cajas de soluciones en la nube para consolidar el flujo administrativo de tu negocio en un solo panel central interactivo. Muy pronto.</p>
-                <a href="#" class="btn-card" style="opacity: 0.5; pointer-events: none;">Espacio Reservado</a>
+                <div class="card-icon"><i class="fa-solid fa-box-archive"></i></div>
+                <h3>Módulo Especial a Medida</h3>
+                <p>¿Necesitas una solución específica? Diseñamos el ejecutable o sistema web según los requerimientos exactos de tu empresa.</p>
             </div>
         </div>
     </section>
 
     <section class="validator" id="validador">
         <div class="validator-box">
-            <div class="card-icon" style="margin-bottom: 12px;"><i class="fa-solid fa-shield-halved"></i></div>
-            <h3>Portal de Validación de Licencias</h3>
-            <p>Acceso seguro para clientes de DREX. Verifica el estado, vencimiento y dispositivos activos de tu licencia en tiempo real.</p>
+            <i class="fa-solid fa-lock" style="font-size: 28px; color: var(--accent-bright); margin-bottom: 16px;"></i>
+            <h3 style="font-size: 24px; margin-bottom: 8px;">Portal de Validación de Licencias</h3>
+            <p style="color: var(--text-secondary); font-size: 14px;">Servidor seguro de verificación de suscripciones en tiempo real.</p>
             
             <div class="input-group">
-                <input type="text" id="license-input" placeholder="Introduce tu clave de licencia DREX-XXXX">
-                <input type="text" id="hwid-input" placeholder="Hardware ID del Equipo">
-                <button class="btn-validate" onclick="validarLicencia()">Validar <i class="fa-solid fa-key"></i></button>
+                <input type="text" id="license-input" placeholder="DREX-XXXX-XXXX">
+                <input type="text" id="hwid-input" placeholder="HWID del Equipo">
+                <button class="cta-btn" onclick="validarLicencia()" style="cursor: pointer; border: none;">Validar</button>
             </div>
             
-            <div id="result"></div>
+            <div id="result" style="margin-top: 15px; font-weight: 600; font-size: 13px;"></div>
         </div>
     </section>
 
     <footer>
         <p>&copy; 2026 DREX Software. Todos los derechos reservados.</p>
-        <p style="font-size: 13px; color: #475569;">Desarrollado en Bolivia de la mano con la informática.</p>
         <div class="brand-sign">A.S.L.I. — AUTOMATED SOLUTIONS & LOGIC INFRASTRUCTURE</div>
     </footer>
 
     <script>
-        // Tarjetas Bento interactiva por movimiento de mouse 
-        document.querySelectorAll('.bento-card').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--x', `${x}px`);
-                card.style.setProperty('--y', `${y}px`);
-            });
-        });
-
-        // Consola de Validacion para verificar api 
         async function validarLicencia() {
             const license = document.getElementById('license-input').value.trim();
             const hwid = document.getElementById('hwid-input').value.trim();
             const resultBox = document.getElementById('result');
 
             if(!license || !hwid) {
-                resultBox.innerHTML = '<span class="invalid-box"><i class="fa-solid fa-triangle-exclamation"></i> Por favor complete todos los datos.</span>';
+                resultBox.innerHTML = '<span style="color: #EF4444;"><i class="fa-solid fa-triangle-exclamation"></i> Por favor ingrese Licencia y HWID.</span>';
                 return;
             }
 
-            resultBox.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Consultando servidor seguro DREX...';
+            resultBox.innerHTML = '<span style="color: var(--accent-bright);"><i class="fa-solid fa-spinner fa-spin"></i> Conectando con servidor DREX...</span>';
 
             try {
-                // MODIFICAR AQUÍ: Colocar la URL real de tu API de Vercel cuando la tengas activa
-                const API_URL = 'https://servidor-licencias-api-tuservidor.vercel.app/api/validar'; 
+                // Reemplaza esta URL con la tuya de Vercel cuando la pruebes
+                const API_URL = 'https://servidor-licencias-api.vercel.app/api/validar';
 
                 const response = await fetch(API_URL, {
                     method: 'POST',
@@ -521,15 +453,6 @@
                 const data = await response.json();
 
                 if (response.ok && data.autorizado) {
-                    resultBox.innerHTML = `<span class="valid-box"><i class="fa-solid fa-circle-check"></i> LICENCIA AUTORIZADA<br><small style="color: var(--text-secondary);">Cliente: ${data.cliente} | Días restantes: ${data.dias_restantes}</small></span>`;
+                    resultBox.innerHTML = `<span style="color: #10B981;"><i class="fa-solid fa-circle-check"></i> LICENCIA AUTORIZADA | Cliente: ${data.cliente} (${data.dias_restantes} días)</span>`;
                 } else {
-                    resultBox.innerHTML = `<span class="invalid-box"><i class="fa-solid fa-circle-xmark"></i> ACCESO RECHAZADO: ${data.mensaje}</span>`;
-                }
-
-            } catch (error) {
-                resultBox.innerHTML = '<span class="invalid-box"><i class="fa-solid fa-server"></i> Error de conexión con el servidor DREX. Verifique las variables.</span>';
-            }
-        }
-    </script>
-</body>
-</html>
+                    resultBox.innerHTML = `<span style="color

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DREX Software | Soluciones Automatizadas & Infraestructura Lógica</title>
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -21,30 +22,11 @@
             --text-secondary: #94A3B8;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            scroll-behavior: smooth;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg); color: var(--text-primary); overflow-x: hidden; line-height: 1.6; }
 
-        body {
-            background-color: var(--bg);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* Ambient Glow & Background Image/Mesh */
         .ambient-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            pointer-events: none;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;
             background: 
                 radial-gradient(circle at 20% 20%, rgba(0, 102, 255, 0.12) 0%, transparent 40%),
                 radial-gradient(circle at 80% 80%, rgba(0, 229, 255, 0.08) 0%, transparent 40%),
@@ -52,296 +34,114 @@
         }
 
         .bg-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.6;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px; z-index: -1; pointer-events: none; opacity: 0.6;
         }
 
-        /* Navbar */
+        /* Sidebar Trigger & Drawers */
+        .sidebar-toggle {
+            position: fixed; left: 20px; top: 50%; transform: translateY(-50%); z-index: 101;
+            background: rgba(6, 9, 15, 0.8); border: 1px solid var(--border); color: var(--accent-bright);
+            padding: 14px; border-radius: 12px; cursor: pointer; backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .sidebar-toggle:hover { border-color: var(--accent-bright); box-shadow: 0 0 15px var(--accent-glow); }
+
+        .sidebar {
+            position: fixed; left: -320px; top: 0; width: 300px; height: 100vh;
+            background: rgba(6, 9, 15, 0.95); border-right: 1px solid var(--border); backdrop-filter: blur(16px);
+            z-index: 102; padding: 40px 24px; transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; flex-direction: column; gap: 20px;
+        }
+
+        .sidebar.active { left: 0; }
+        .sidebar-close { align-self: flex-end; color: var(--text-secondary); cursor: pointer; font-size: 20px; }
+        .sidebar h4 { font-size: 14px; letter-spacing: 1px; color: var(--accent-bright); font-family: 'JetBrains Mono', monospace; }
+        .sidebar a { color: var(--text-secondary); text-decoration: none; font-size: 14px; transition: color 0.3s; display: flex; align-items: center; gap: 10px; }
+        .sidebar a:hover { color: #FFF; }
+
+        /* Header & Nav */
         header {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 1200px;
-            background: rgba(6, 9, 15, 0.8);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 14px 28px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 1200px;
+            background: rgba(6, 9, 15, 0.8); backdrop-filter: blur(16px); border: 1px solid var(--border);
+            border-radius: 16px; padding: 14px 28px; display: flex; justify-content: space-between; align-items: center; z-index: 100;
         }
 
-        .logo-main {
-            font-size: 22px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #FFF;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-main i {
-            color: var(--accent-bright);
-            filter: drop-shadow(0 0 8px var(--accent-glow));
-        }
-
-        .logo-sub {
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: var(--text-secondary);
-            font-family: 'JetBrains Mono', monospace;
-        }
+        .logo-main { font-size: 22px; font-weight: 800; letter-spacing: 2px; color: #FFF; display: flex; align-items: center; gap: 10px; }
+        .logo-main i { color: var(--accent-bright); filter: drop-shadow(0 0 8px var(--accent-glow)); }
+        .logo-sub { font-size: 9px; font-weight: 700; letter-spacing: 2px; color: var(--text-secondary); font-family: 'JetBrains Mono', monospace; }
 
         nav { display: flex; gap: 28px; }
-
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
+        nav a { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.3s; }
         nav a:hover { color: var(--accent-bright); }
 
         .cta-btn {
             background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 229, 255, 0.2));
-            border: 1px solid rgba(0, 229, 255, 0.4);
-            color: #FFF;
-            padding: 10px 22px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            transition: all 0.3s;
+            border: 1px solid rgba(0, 229, 255, 0.4); color: #FFF; padding: 10px 22px; border-radius: 10px;
+            text-decoration: none; font-size: 13px; font-weight: 700; transition: all 0.3s;
         }
 
-        .cta-btn:hover {
-            background: var(--accent);
-            border-color: var(--accent-bright);
-            box-shadow: 0 0 20px var(--accent-glow);
-            transform: translateY(-2px);
-        }
+        .cta-btn:hover { background: var(--accent); border-color: var(--accent-bright); box-shadow: 0 0 20px var(--accent-glow); transform: translateY(-2px); }
 
         /* Hero */
-        .hero {
-            padding: 190px 20px 100px;
-            max-width: 1100px;
-            margin: 0 auto;
-            text-align: center;
+        .hero { padding: 190px 20px 80px; max-width: 1100px; margin: 0 auto; text-align: center; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 102, 255, 0.1); border: 1px solid rgba(0, 229, 255, 0.2); color: var(--accent-bright); padding: 6px 16px; border-radius: 30px; font-size: 12px; font-weight: 700; font-family: 'JetBrains Mono', monospace; margin-bottom: 24px; }
+        .hero h1 { font-size: clamp(36px, 5.5vw, 68px); font-weight: 800; line-height: 1.1; margin-bottom: 24px; }
+        .hero h1 span { background: linear-gradient(135deg, #FFF 30%, var(--accent-bright) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { color: var(--text-secondary); font-size: clamp(16px, 2vw, 19px); max-width: 720px; margin: 0 auto 40px; }
+
+        /* Bento Grid */
+        .products { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+        .bento-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 36px; transition: all 0.4s ease; backdrop-filter: blur(10px); }
+        .bento-card:hover { border-color: var(--border-glow); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+        .card-1 { grid-column: span 8; } .card-2 { grid-column: span 4; } .card-3 { grid-column: span 4; } .card-4 { grid-column: span 8; }
+        @media (max-width: 900px) { .card-1, .card-2, .card-3, .card-4 { grid-column: span 12; } }
+
+        .card-actions { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: #FFF; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .btn-outline:hover { border-color: var(--accent-bright); color: var(--accent-bright); }
+
+        /* Modales Informativos */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(6, 9, 15, 0.85); backdrop-filter: blur(12px); z-index: 200;
+            display: none; align-items: center; justify-content: center; padding: 20px;
         }
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 102, 255, 0.1);
-            border: 1px solid rgba(0, 229, 255, 0.2);
-            color: var(--accent-bright);
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 700;
-            font-family: 'JetBrains Mono', monospace;
-            margin-bottom: 24px;
+        .modal-card {
+            background: #0B0F19; border: 1px solid var(--border-glow); border-radius: 24px;
+            max-width: 600px; width: 100%; padding: 40px; position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
 
-        .hero h1 {
-            font-size: clamp(36px, 5.5vw, 68px);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            letter-spacing: -1px;
-        }
+        .modal-close { position: absolute; top: 20px; right: 20px; color: var(--text-secondary); cursor: pointer; font-size: 20px; }
 
-        .hero h1 span {
-            background: linear-gradient(135deg, #FFF 30%, var(--accent-bright) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        /* Section Mission / Vision */
+        .about-section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; }
+        .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .about-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px; }
 
-        .hero p {
-            color: var(--text-secondary);
-            font-size: clamp(16px, 2vw, 19px);
-            max-width: 720px;
-            margin: 0 auto 40px;
-        }
-
-        /* Bento Grid (Estantes Interactivos) */
-        .products {
-            padding: 80px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 { font-size: 34px; font-weight: 800; }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 24px;
-        }
-
-        .bento-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 36px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Preview overlay on hover */
-        .bento-card::after {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
-            background: radial-gradient(circle at top right, rgba(0, 229, 255, 0.08), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.4s;
-            pointer-events: none;
-        }
-
-        .bento-card:hover::after { opacity: 1; }
-
-        .bento-card:hover {
-            border-color: var(--border-glow);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 102, 255, 0.15);
-        }
-
-        .card-1 { grid-column: span 8; }
-        .card-2 { grid-column: span 4; }
-        .card-3 { grid-column: span 4; }
-        .card-4 { grid-column: span 8; }
-
-        @media (max-width: 900px) {
-            .card-1, .card-2, .card-3, .card-4 { grid-column: span 12; }
-        }
-
-        .card-icon {
-            width: 52px;
-            height: 52px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: var(--accent-bright);
-            margin-bottom: 24px;
-            transition: all 0.3s;
-        }
-
-        .bento-card:hover .card-icon {
-            background: var(--accent);
-            color: #FFF;
-            border-color: var(--accent-bright);
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-
-        .bento-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
-        .bento-card p { color: var(--text-secondary); font-size: 15px; margin-bottom: 24px; }
-
-        /* Simulated Software Screen Preview inside card */
-        .card-preview {
-            background: rgba(6, 9, 15, 0.9);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 12px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            color: #38BDF8;
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Validator */
-        .validator-box {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 50px 30px;
-            max-width: 750px;
-            margin: 0 auto;
-            text-align: center;
-            backdrop-filter: blur(12px);
-        }
-
-        .input-group {
-            display: flex;
-            max-width: 520px;
-            margin: 30px auto 10px;
-            gap: 12px;
-        }
-
-        @media (max-width: 600px) { .input-group { flex-direction: column; } }
-
-        .input-group input {
-            flex: 1;
-            background: rgba(6, 9, 15, 0.9);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 14px 18px;
-            color: #FFF;
-            font-size: 14px;
-            font-family: 'JetBrains Mono', monospace;
-            outline: none;
-        }
-
-        .input-group input:focus {
-            border-color: var(--accent-bright);
-            box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
-        }
-
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 50px 20px;
-            text-align: center;
-            margin-top: 80px;
-        }
-
-        .brand-sign {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            letter-spacing: 2px;
-            color: var(--accent-bright);
-            margin-top: 12px;
-            opacity: 0.8;
-        }
+        footer { border-top: 1px solid var(--border); padding: 50px 20px; text-align: center; margin-top: 80px; }
     </style>
 </head>
 <body>
 
     <div class="ambient-bg"></div>
     <div class="bg-grid"></div>
+
+    <!-- Menú Lateral Izquierdo -->
+    <div class="sidebar-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars-staggered"></i></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-close" onclick="toggleSidebar()"><i class="fa-solid fa-xmark"></i></div>
+        <h4>ÍNDICE DE SOLUCIONES</h4>
+        <a href="#soluciones" onclick="toggleSidebar()"><i class="fa-solid fa-cube"></i> Catálogo de Productos</a>
+        <a href="#about" onclick="toggleSidebar()"><i class="fa-solid fa-compass"></i> Misión & Visión (A.S.L.I.)</a>
+        <a href="#validador" onclick="toggleSidebar()"><i class="fa-solid fa-key"></i> Portal de Licencias</a>
+        <a href="https://wa.me/591XXXXXXXX" target="_blank"><i class="fa-brands fa-whatsapp"></i> Agendar Cita Comercial</a>
+    </div>
 
     <header>
         <div>
@@ -350,109 +150,150 @@
         </div>
         <nav>
             <a href="#soluciones">Soluciones</a>
+            <a href="#about">Nosotros</a>
             <a href="#validador">Licencias</a>
         </nav>
-        <a href="https://wa.me/591XXXXXXXX" target="_blank" class="cta-btn"><i class="fa-brands fa-whatsapp"></i> Contacto Directo</a>
+        <a href="https://wa.me/591XXXXXXXX" target="_blank" class="cta-btn"><i class="fa-brands fa-whatsapp"></i> Cotizar Ahora</a>
     </header>
 
     <section class="hero">
-        <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> SEGURE-BY-DESIGN</div>
+        <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> SISTEMAS SECURE-BY-DESIGN</div>
         <h1>Automatización e Infraestructura <span>Lógica de Alto Nivel</span></h1>
-        <p>Desarrollamos soluciones de software robustas, seguras y escalables para optimizar la operativa de empresas.</p>
-        <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-            <a href="https://wa.me/591XXXXXXXX" class="cta-btn" style="padding: 14px 32px; font-size: 14px;">Solicitar Demostración</a>
-            <a href="#validador" style="padding: 14px 28px; border: 1px solid var(--border); color: #FFF; text-decoration: none; border-radius: 10px; font-size: 14px; font-weight: 600;">Verificar Licencia</a>
-        </div>
+        <p>Desarrollamos soluciones de software robustas, seguras y escalables para optimizar la operativa de empresas en Bolivia.</p>
     </section>
 
+    <!-- Sección de Productos -->
     <section class="products" id="soluciones">
-        <div class="section-title">
-            <h2>Nuestra Ventana de Soluciones</h2>
-            <p style="color: var(--text-secondary); margin-top: 8px;">Módulos de software preparados para integrarse a la medida de tu negocio.</p>
+        <div style="text-align: center; margin-bottom: 50px;">
+            <h2>Vitrina de Productos & Licencias</h2>
+            <p style="color: var(--text-secondary);">Elige el software ideal para impulsar tu negocio.</p>
         </div>
 
         <div class="bento-grid">
+            <!-- Módulo RRHH -->
             <div class="bento-card card-1">
-                <div class="card-icon"><i class="fa-solid fa-id-card-clip"></i></div>
+                <i class="fa-solid fa-id-card-clip" style="font-size: 32px; color: var(--accent-bright); margin-bottom: 16px;"></i>
                 <h3>Gestión de Personal, Asistencia & Planillas</h3>
-                <p>Digitaliza el control de marcado de personal, cálculo automático de salarios y emisión de boletas conforme a la normativa vigente.</p>
-                <div class="card-preview">
-                    <i class="fa-solid fa-circle-check" style="color: #10B981;"></i>
-                    <span>SYS_RRHH_LOG // Planillas calculadas en 0.04s [OK]</span>
+                <p>Digitaliza el marcado de asistencia, cálculo salarial y boletas de pago conforme a normativa laboral.</p>
+                <div class="card-actions">
+                    <button class="btn-outline" onclick="openModal('rrhh')"><i class="fa-solid fa-circle-info"></i> Más Información</button>
+                    <a href="https://wa.me/591XXXXXXXX?text=Hola%20DREX,%20quiero%20adquirir%20el%20sistema%20de%20RRHH" target="_blank" class="cta-btn"><i class="fa-solid fa-cart-shopping"></i> Solicitar Licencia</a>
                 </div>
             </div>
 
+            <!-- Módulo IA -->
             <div class="bento-card card-2">
-                <div class="card-icon"><i class="fa-solid fa-robot"></i></div>
-                <h3>Agentes IA & Automatización</h3>
-                <p>Atención automática a clientes en WhatsApp e integración de flujos inteligentes.</p>
-                <div class="card-preview">
-                    <i class="fa-solid fa-bolt" style="color: #F59E0B;"></i>
-                    <span>BOT_RESPONSE // Respuesta en 0.2s</span>
+                <i class="fa-solid fa-robot" style="font-size: 32px; color: var(--accent-bright); margin-bottom: 16px;"></i>
+                <h3>Agentes IA & WhatsApp</h3>
+                <p>Atención automática a clientes en WhatsApp 24/7 con integración a bases de datos.</p>
+                <div class="card-actions">
+                    <button class="btn-outline" onclick="openModal('ia')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
+                    <a href="https://wa.me/591XXXXXXXX?text=Hola%20DREX,%20quiero%20cotizar%20un%20Bot%20IA" target="_blank" class="cta-btn"><i class="fa-solid fa-bolt"></i> Cotizar Bot</a>
                 </div>
             </div>
 
+            <!-- Módulo QR -->
             <div class="bento-card card-3">
-                <div class="card-icon"><i class="fa-solid fa-cash-register"></i></div>
+                <i class="fa-solid fa-cash-register" style="font-size: 32px; color: var(--accent-bright); margin-bottom: 16px;"></i>
                 <h3>Menú QR & Control Comercial</h3>
-                <p>Control de inventario, impresiones locales y administración de comensales.</p>
+                <p>Control de inventarios, comandas y recepción de pedidos instantánea.</p>
+                <div class="card-actions">
+                    <button class="btn-outline" onclick="openModal('qr')"><i class="fa-solid fa-circle-info"></i> Ver Funciones</button>
+                    <a href="https://wa.me/591XXXXXXXX?text=Hola%20DREX,%20quiero%20la%20licencia%20de%20Menu%20QR" target="_blank" class="cta-btn">Comprar Licencia</a>
+                </div>
             </div>
 
+            <!-- Módulo a Medida -->
             <div class="bento-card card-4">
-                <div class="card-icon"><i class="fa-solid fa-box-archive"></i></div>
-                <h3>Módulo Especial a Medida</h3>
-                <p>¿Necesitas una solución específica? Diseñamos el ejecutable o sistema web según los requerimientos exactos de tu empresa.</p>
+                <i class="fa-solid fa-code" style="font-size: 32px; color: var(--accent-bright); margin-bottom: 16px;"></i>
+                <h3>Desarrollo a Medida (Custom Build)</h3>
+                <p>¿Tienes un requerimiento especial? Construimos ejecutables o sistemas web integrados a tus procesos.</p>
+                <div class="card-actions">
+                    <a href="https://wa.me/591XXXXXXXX?text=Hola%20DREX,%20deseo%20agendar%20una%20reunion%20para%20un%20proyecto%20a%20medida" target="_blank" class="cta-btn"><i class="fa-solid fa-calendar-check"></i> Agendar Cita de Diagnóstico</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="validator" id="validador">
-        <div class="validator-box">
-            <i class="fa-solid fa-lock" style="font-size: 28px; color: var(--accent-bright); margin-bottom: 16px;"></i>
-            <h3 style="font-size: 24px; margin-bottom: 8px;">Portal de Validación de Licencias</h3>
-            <p style="color: var(--text-secondary); font-size: 14px;">Servidor seguro de verificación de suscripciones en tiempo real.</p>
-            
-            <div class="input-group">
-                <input type="text" id="license-input" placeholder="DREX-XXXX-XXXX">
-                <input type="text" id="hwid-input" placeholder="HWID del Equipo">
-                <button class="cta-btn" onclick="validarLicencia()" style="cursor: pointer; border: none;">Validar</button>
+    <!-- Sección Misión y Visión -->
+    <section class="about-section" id="about">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <span style="font-family: 'JetBrains Mono', monospace; color: var(--accent-bright); font-size: 12px; font-weight: 700;">FILOSOFÍA A.S.L.I.</span>
+            <h2 style="margin-top: 8px;">Objetivos & Pilares de DREX Software</h2>
+        </div>
+        <div class="about-grid">
+            <div class="about-card">
+                <i class="fa-solid fa-bullseye" style="font-size: 24px; color: var(--accent-bright); margin-bottom: 16px;"></i>
+                <h3 style="margin-bottom: 12px;">Nuestra Misión</h3>
+                <p style="color: var(--text-secondary); font-size: 14px;">Democratizar la informatización y automatización de procesos en las empresas bolivianas mediante infraestructura lógica accesible, rápida y segura.</p>
             </div>
-            
-            <div id="result" style="margin-top: 15px; font-weight: 600; font-size: 13px;"></div>
+            <div class="about-card">
+                <i class="fa-solid fa-eye" style="font-size: 24px; color: var(--accent-bright); margin-bottom: 16px;"></i>
+                <h3 style="margin-bottom: 12px;">Nuestra Visión</h3>
+                <p style="color: var(--text-secondary); font-size: 14px;">Convertirnos en el estándar tecnológico de gestión y licencias seguras en el país, ofreciendo sistemas que operen con cero interrupciones.</p>
+            </div>
         </div>
     </section>
+
+    <!-- Modal Emergente para Detalle de Productos -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-card">
+            <div class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></div>
+            <h3 id="modalTitle" style="font-size: 24px; margin-bottom: 12px; color: #FFF;"></h3>
+            <p id="modalDesc" style="color: var(--text-secondary); font-size: 15px; margin-bottom: 24px;"></p>
+            <div id="modalFeatures" style="margin-bottom: 24px; font-size: 14px; color: var(--accent-bright);"></div>
+            <a id="modalBuyBtn" href="#" target="_blank" class="cta-btn" style="display: inline-block; text-align: center; width: 100%;">Solicitar Licencia Directa</a>
+        </div>
+    </div>
 
     <footer>
         <p>&copy; 2026 DREX Software. Todos los derechos reservados.</p>
-        <div class="brand-sign">A.S.L.I. — AUTOMATED SOLUTIONS & LOGIC INFRASTRUCTURE</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent-bright); margin-top: 10px;">
+            A.S.L.I. — AUTOMATED SOLUTIONS & LOGIC INFRASTRUCTURE
+        </div>
     </footer>
 
     <script>
-        async function validarLicencia() {
-            const license = document.getElementById('license-input').value.trim();
-            const hwid = document.getElementById('hwid-input').value.trim();
-            const resultBox = document.getElementById('result');
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
 
-            if(!license || !hwid) {
-                resultBox.innerHTML = '<span style="color: #EF4444;"><i class="fa-solid fa-triangle-exclamation"></i> Por favor ingrese Licencia y HWID.</span>';
-                return;
+        const productDetails = {
+            rrhh: {
+                title: "Módulo RRHH & Control de Planillas",
+                desc: "Sistema diseñado para automatizar el control de personal en instituciones y empresas. Incluye reporte de marcado diario, liquidaciones, gestión de permisos y generación de boletas digitales.",
+                features: "✓ Exportación a Excel y PDF<br>✓ Verificación de horario puntual/atraso<br>✓ Licencia por equipo o servidor central",
+                link: "https://wa.me/591XXXXXXXX?text=Quiero%20mas%20informacion%20del%20modulo%20RRHH"
+            },
+            ia: {
+                title: "Agentes de Inteligencia Artificial & WhatsApp",
+                desc: "Flujo automatizado integrado a la API oficial de WhatsApp para responder consultas frecuentes, agendar clientes o tomar pedidos automáticamente a cualquier hora.",
+                features: "✓ Entrenamiento con datos de tu empresa<br>✓ Respuestas instantáneas en < 0.5s<br>✓ Panel de métricas de conversación",
+                link: "https://wa.me/591XXXXXXXX?text=Quiero%20mas%20informacion%20de%20los%20Bots%20IA"
+            },
+            qr: {
+                title: "Sistema de Menú QR & Punto de Venta",
+                desc: "Permite a los comensales y clientes escanear un código QR para revisar el catálogo actualizado en tiempo real y enviar el pedido directo a caja o cocina.",
+                features: "✓ Panel de administración simple<br>✓ Impresión de comanda local<br>✓ Cero comisiones por venta",
+                link: "https://wa.me/591XXXXXXXX?text=Quiero%20mas%20informacion%20del%20Menu%20QR"
             }
+        };
 
-            resultBox.innerHTML = '<span style="color: var(--accent-bright);"><i class="fa-solid fa-spinner fa-spin"></i> Conectando con servidor DREX...</span>';
+        function openModal(type) {
+            const data = productDetails[type];
+            if(!data) return;
 
-            try {
-                // Reemplaza esta URL con la tuya de Vercel cuando la pruebes
-                const API_URL = 'https://servidor-licencias-api.vercel.app/api/validar';
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalDesc').innerText = data.desc;
+            document.getElementById('modalFeatures').innerHTML = data.features;
+            document.getElementById('modalBuyBtn').href = data.link;
 
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ clave_licencia: license, hardware_id: hwid })
-                });
+            document.getElementById('productModal').style.display = 'flex';
+        }
 
-                const data = await response.json();
-
-                if (response.ok && data.autorizado) {
-                    resultBox.innerHTML = `<span style="color: #10B981;"><i class="fa-solid fa-circle-check"></i> LICENCIA AUTORIZADA | Cliente: ${data.cliente} (${data.dias_restantes} días)</span>`;
-                } else {
-                    resultBox.innerHTML = `<span style="color
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
